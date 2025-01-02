@@ -86,6 +86,8 @@
         <material>Gazebo/Orange</material>
     </gazebo>
 
+    
+
     <!-- front left steering -->
 
     <link name="front_left_wheel">
@@ -160,8 +162,6 @@
         <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
         <axis xyz="0 0 1"/> <!-- Rotates around z-axis -->
     </joint>
-
-    
 
     <!-- Front Right Wheel -->
     <link name="front_right_wheel">
@@ -249,7 +249,7 @@
 
     <!-- LEFT WHEEL LINK -->
 
-    <joint name="left_wheel_joint" type="continuous">
+    <joint name="left_rear_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel"/>
         <origin xyz="0 ${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
@@ -273,16 +273,19 @@
         </xacro:inertial_cylinder>
     </link>
 
-    <gazebo reference="left_wheel">
-        <material>Gazebo/Blue</material>
+    <gazebo reference="left_wheel"> 
+        <mu1 value="2.0"/> 
+        <mu2 value="2.0"/> 
+        <kp  value="10000000.0" /> 
+        <kd  value="1.0" /> 
+        <fdir1 value="0 1 0"/> 
+        <material>Gazebo/Blue</material> 
     </gazebo>
-
-
 
 
     <!-- RIGHT WHEEL LINK -->
 
-    <joint name="right_wheel_joint" type="continuous">
+    <joint name="right_rear_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
         <origin xyz="0 ${-wheel_offset_y} 0" rpy="${pi/2} 0 0" />
@@ -305,10 +308,13 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_cylinder>
     </link>
-
-    <gazebo reference="right_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo>
-
+    <gazebo reference="right_wheel"> 
+    <mu1 value="2.0"/> 
+    <mu2 value="2.0"/> 
+    <kp  value="10000000.0" /> 
+    <kd  value="1.0" /> 
+    <fdir1 value="0 1 0"/> 
+    <material>Gazebo/Blue</material> 
+  </gazebo>
 
 </robot>
