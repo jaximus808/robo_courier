@@ -17,3 +17,18 @@ rviz
 > rviz2
 
 make sure to change frame to base link, and add tf topic
+
+## NEW UPDATED RUN with ackerman
+
+### launch sim
+
+ros2 launch robo_courier launch_sim.launch.py 
+
+### launch control 
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel:=/ack_cont/reference_unstamped
+
+
+### dev notes
+
+configs for control is in my_controllers.yaml, we use ros2_control.yaml for future reference plz dont troll this i spent so much time
