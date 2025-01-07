@@ -24,4 +24,5 @@ ack_cont:
     wheelbase: 0.49784
     front_wheels_radius: 0.076
     rear_wheels_radius: 0.076
+    use_stamped_vel: true #stmaped
 

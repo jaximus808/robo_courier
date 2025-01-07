@@ -24,7 +24,11 @@ make sure to change frame to base link, and add tf topic
 
 ros2 launch robo_courier launch_sim.launch.py 
 
-### launch control 
+### launch keyboard
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true --remap /cmd_vel:=/ack_cont/reference
+
+stamped
 
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel:=/ack_cont/reference_unstamped
 

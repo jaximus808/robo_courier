@@ -20,7 +20,29 @@ def generate_launch_description():
                 get_package_share_directory(package_name),'launch','rsp.launch.py'
             )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
     )
+    joystick = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(package_name),'launch','joystick.launch.py'
+            )]), launch_arguments={'use_sim_time': 'true'}.items()
+    )
+    twist_mux_params = os.path.join(get_package_share_directory(package_name),'config','twist_mux.yaml')
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[twist_mux_params, {'use_sim_time': True}],
+            remappings=[('/cmd_vel_out','/cmd_vel_out_unstamped')]
+        )
+    
+    #temp twist to twist stamped 
 
+    twist_stamp = Node(
+        package="twist_to_twiststamped",
+        executable="twist_to_twiststamped_node",
+        parameters=[{'input_topic': '/cmd_vel_out_unstamped',         
+                    'output_topic': '/ack_cont/reference', 
+                    'frame_id': 'base_link'  }]
+    )
+    
     # Path to Gazebo parameters file
     
     gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
@@ -58,6 +80,9 @@ def generate_launch_description():
     # Launch them all
     return LaunchDescription([
         rsp,
+        joystick,
+        twist_mux,
+        twist_stamp,
         gazebo,
         spawn_entity,
         ack_drive_spawner,
